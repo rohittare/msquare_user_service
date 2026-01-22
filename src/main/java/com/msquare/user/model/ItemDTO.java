@@ -15,7 +15,7 @@ public class ItemDTO {
     private String description;
     private Double price;
     private String category;
-    private boolean isVeg;
-    private boolean isAvailable;
-    private boolean isSpecial;
+    private Boolean veg;
+    private Boolean available;
+    private Boolean special;
 }

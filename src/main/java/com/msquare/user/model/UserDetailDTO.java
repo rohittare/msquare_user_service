@@ -3,6 +3,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.List;
 
 @Builder
 @Getter
@@ -17,7 +18,8 @@ public class UserDetailDTO {
     private String phone;
     private String userProfilePicture;
     private String role;
-    private boolean isActive;
+    private Boolean asctive;
+    private List<AddressDTO> addresses;
     @Builder.Default
     private LocalDateTime createdDate = LocalDateTime.now();
     

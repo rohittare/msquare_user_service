@@ -1,7 +1,6 @@
 package com.msquare.user.entity;
 
 
-import com.msquare.user.entity.ShopEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,23 +19,22 @@ public class ItemEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID itemId;
 
+    private UUID shopId;
+
     @Column(nullable = false)
-    private String name;
+    private String name; 
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     private Double price;
 
-    private String category;
+    private String category; // [extra , regular , none]
 
-    private boolean isVeg;
+    private boolean veg;
 
-    private boolean isAvailable;
+    private boolean available;
 
-    private boolean isSpecial; // optional flag
+    private boolean special; 
 
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    private ShopEntity shop;
 }

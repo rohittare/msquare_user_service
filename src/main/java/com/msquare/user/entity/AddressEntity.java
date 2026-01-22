@@ -18,6 +18,8 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID addressId;
 
+    private UUID userId;
+
     private String type; // HOME, WORK
 
     private String area;
@@ -26,8 +28,4 @@ public class AddressEntity {
 
     @Column(columnDefinition = "TEXT")
     private String fullAddress; // building, flat, landmark
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserDetailEntity user;
 }

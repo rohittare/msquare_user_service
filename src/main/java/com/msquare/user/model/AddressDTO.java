@@ -11,6 +11,7 @@ import java.util.UUID;
 public class AddressDTO {
 
     private UUID addressId;
+    private UUID userId;
     private String type;       // HOME, WORK
     private String area;
     private String city;

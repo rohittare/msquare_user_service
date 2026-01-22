@@ -15,14 +15,12 @@ import java.util.UUID;
 public class ShopDTO {
 
     private UUID shopId;
+    private String description;
     private String name;
     private Double rating;
     private String tags;
-    private boolean isPureVeg;
+    private Boolean pureVeg;
     private String picture;
 
-    private AddressDTO address;
-
-    private List<ItemDTO> todaysSpecialItems;
-    private List<ItemDTO> weeklyMenuItems;
+    private UUID addressId;
 }

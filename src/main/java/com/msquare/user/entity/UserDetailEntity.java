@@ -34,6 +34,6 @@ public class UserDetailEntity {
     private String role;
 
     private LocalDateTime createdDate;
-    private boolean isActive;
+    private boolean active;
 
 }
