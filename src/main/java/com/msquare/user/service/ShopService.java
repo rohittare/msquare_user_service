@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 import static com.msquare.user.common.CommonUtil.mapList;
 
+import com.msquare.user.repo.AddressRepo;
 import com.msquare.user.repo.ShopRepo;
 import com.msquare.user.entity.ShopEntity;
 import com.msquare.user.model.ShopDTO;
@@ -17,11 +18,13 @@ import com.msquare.user.model.ShopDTO;
 public class ShopService {
     private final ModelMapper modelMapper;
     private final ShopRepo shopRepo;
+    private final AddressService addressService;
 
     @Autowired
-    public ShopService(ModelMapper modelMapper, ShopRepo shopRepo) {
+    public ShopService(ModelMapper modelMapper, ShopRepo shopRepo, AddressService addressService) {
         this.modelMapper = modelMapper;
         this.shopRepo = shopRepo;
+        this.addressService = addressService;
     }
 
     public ShopDTO createShop(ShopDTO shopDTO) {
@@ -52,11 +55,11 @@ public class ShopService {
         if (shopDTO.getPicture() != null) {
             entity.setPicture(shopDTO.getPicture());
         }
-        if (shopDTO.getAddressId() != null) {
-            entity.setAddressId(shopDTO.getAddressId());
+        if (shopDTO.getAddress() != null) {
+            addressService.updateAddress(entity.getAddress().getAddressId(), shopDTO.getAddress());
         }
 
-        if(shopDTO.getPureVeg() != null) {
+        if (shopDTO.getPureVeg() != null) {
             entity.setPureVeg(shopDTO.getPureVeg());
         }
         ShopEntity updated = shopRepo.save(entity);
@@ -72,8 +75,8 @@ public class ShopService {
     }
 
     public List<ShopDTO> getApprovedShops() {
-        List<ShopEntity> entities = shopRepo.findByIsApprovedTrue();
-        if (!entities.isEmpty()) {
+        List<ShopEntity> entities = shopRepo.findAll();
+        if(!entities.isEmpty()) {
             return mapList(entities, ShopDTO.class);
         }
         return Collections.emptyList();

@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.msquare.user.service.AddressService;
 import com.msquare.user.service.ShopService;
-import com.msquare.user.model.AddressDTO;
 import com.msquare.user.model.ShopDTO;
 
 import java.util.List;

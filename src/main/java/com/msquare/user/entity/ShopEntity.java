@@ -1,6 +1,7 @@
 package com.msquare.user.entity;
 
 import com.msquare.user.entity.ItemEntity;
+import com.msquare.user.model.AddressDTO;
 import com.msquare.user.entity.AddressEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,7 @@ public class ShopEntity {
     private String picture;
 
     /* Address ID only */
-    private UUID addressId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "addressId")
+    private AddressEntity address;
 }

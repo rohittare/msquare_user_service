@@ -21,6 +21,5 @@ public class ShopDTO {
     private String tags;
     private Boolean pureVeg;
     private String picture;
-
-    private UUID addressId;
+    private AddressDTO address;
 }

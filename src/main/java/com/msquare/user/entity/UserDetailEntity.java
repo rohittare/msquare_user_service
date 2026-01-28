@@ -23,6 +23,8 @@ public class UserDetailEntity {
     @Column(nullable = false)
     private String fullName;
 
+    private String password;
+
     @Column(nullable = false, unique = true)
     private String email;
 

@@ -4,10 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
-import static com.msquare.user.common.CommonUtil.mapList;
 
 import com.msquare.user.entity.ShopEntity;
 import com.msquare.user.repo.ShopRepo;
@@ -32,7 +29,6 @@ public class AdminService {
         shopRepo.save(entity);
     }
     public void disableShop(UUID shopId) {
-
     ShopEntity entity = shopRepo.findById(shopId)
             .orElseThrow(() -> new RuntimeException("Shop not found"));
 

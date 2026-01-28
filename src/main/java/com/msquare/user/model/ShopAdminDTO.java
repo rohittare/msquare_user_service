@@ -18,7 +18,7 @@ public class ShopAdminDTO {
     private String name;
     private Double rating;
     private String tags;
-    private boolean isPureVeg;
+    private boolean pureVeg;
     private boolean isApproved;
     private String picture;
 

@@ -31,10 +31,36 @@ public class AddressService {
         return Collections.emptyList();
     }
 
+    public AddressDTO getAddressById(UUID addressId){
+        AddressEntity entity = addressRepo.findById(addressId).orElse(null);
+        if(entity != null){
+            return modelMapper.map(entity , AddressDTO.class);
+        }
+        return null;
+    }
+
     public AddressDTO saveAddress(AddressDTO dto){
         if(dto == null){
             return null;
         }
         return modelMapper.map(addressRepo.save(modelMapper.map(dto, AddressEntity.class)) , AddressDTO.class);
+    }
+
+    public AddressDTO updateAddress(UUID addressId , AddressDTO dto){
+        AddressEntity entity = addressRepo.findById(addressId).orElseThrow(() -> new RuntimeException("Address not found"));
+        if(dto.getArea() != null){
+            entity.setArea(dto.getArea());
+        }
+        if(dto.getCity() != null){
+            entity.setCity(dto.getCity());
+        }
+        if(dto.getFullAddress() != null){
+            entity.setFullAddress(dto.getFullAddress());
+        }
+        if(dto.getPincode() != null){
+            entity.setPincode(dto.getPincode());
+        }
+        AddressEntity updated = addressRepo.save(entity);
+        return modelMapper.map(updated , AddressDTO.class); 
     }
 }
