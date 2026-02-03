@@ -1,8 +1,5 @@
 package com.msquare.user.entity;
 
-import com.msquare.user.entity.ItemEntity;
-import com.msquare.user.model.AddressDTO;
-import com.msquare.user.entity.AddressEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,12 +22,19 @@ public class ShopEntity {
     @Column(nullable = false)
     private String name;
 
+    private String phoneNumber;
+
+    private String email;
+
+    private String password;
+
     private String description;
 
     private Double rating;
     private String tags;
     private boolean pureVeg;
     private boolean isApproved;
+    private String role;
 
     @Column(columnDefinition = "TEXT")
     private String picture;

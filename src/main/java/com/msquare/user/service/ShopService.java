@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 import static com.msquare.user.common.CommonUtil.mapList;
 
-import com.msquare.user.repo.AddressRepo;
 import com.msquare.user.repo.ShopRepo;
 import com.msquare.user.entity.ShopEntity;
 import com.msquare.user.model.ShopDTO;
@@ -31,6 +30,9 @@ public class ShopService {
         ShopEntity entity = modelMapper.map(shopDTO, ShopEntity.class);
         entity.setApproved(false);
         entity.setRating(0.0);
+        if (entity.getRole() == null || entity.getRole().isBlank()) {
+            entity.setRole("SHOP");
+        }
         ShopEntity saved = shopRepo.save(entity);
         return modelMapper.map(saved, ShopDTO.class);
     }
