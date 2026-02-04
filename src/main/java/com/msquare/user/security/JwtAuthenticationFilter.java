@@ -46,16 +46,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        final String jwt = authHeader.substring(7);
-        final String subject = jwtService.extractSubject(jwt);
-        final String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
+        try {
+            final String jwt = authHeader.substring(7);
+            final String subject = jwtService.extractSubject(jwt);
+            final String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
 
-        if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (isShopRole(role)) {
-                authenticateShop(request, jwt, subject);
-            } else {
-                authenticateUser(request, jwt, subject);
+            if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (isShopRole(role)) {
+                    authenticateShop(request, jwt, subject);
+                } else {
+                    authenticateUser(request, jwt, subject);
+                }
             }
+        } catch (Exception ignored) {
+            // Invalid token should not block public endpoints.
         }
 
         filterChain.doFilter(request, response);
