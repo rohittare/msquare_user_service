@@ -12,4 +12,5 @@ public interface ShopRepo extends JpaRepository<ShopEntity , UUID>{
     List<ShopEntity> findByIsApprovedTrue();
     Optional<ShopEntity> findByEmail(String email);
     boolean existsByEmail(String email);
+    boolean existsByAddress_AddressId(UUID addressId);
 }

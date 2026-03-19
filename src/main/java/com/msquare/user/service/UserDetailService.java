@@ -4,8 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -36,26 +37,32 @@ public class UserDetailService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDetailDTO saveUser(UserDetailDTO userDetailDTO) {
-        var entity = modelMapper.map(userDetailDTO, UserDetailEntity.class);
-        if (entity.getPassword() != null && !entity.getPassword().isBlank()) {
-            if (!entity.getPassword().startsWith("$2a$")
-                    && !entity.getPassword().startsWith("$2b$")
-                    && !entity.getPassword().startsWith("$2y$")) {
-                entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-            }
+    public UserDetailDTO updateUser(UUID userId, UserDetailDTO userDetailDTO) {
+        if (userDetailDTO == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User data is required");
         }
-        if (entity.getRole() == null || entity.getRole().isBlank()) {
-            entity.setRole("USER");
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User ID is required");
         }
-        if (entity.getCreatedDate() == null) {
-            entity.setCreatedDate(LocalDateTime.now());
+        UserDetailEntity entity = userDetailRepo.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        if (userDetailDTO.getFullName() != null) {
+            entity.setFullName(userDetailDTO.getFullName());
         }
-        if (userDetailDTO.getActive() == null) {
-            entity.setActive(true);
+   
+        if (userDetailDTO.getPhone() != null) {
+            entity.setPhone(userDetailDTO.getPhone());
         }
-        var saved = userDetailRepo.save(entity);
-        return sanitize(modelMapper.map(saved, UserDetailDTO.class));
+        if (userDetailDTO.getUserProfilePicture() != null) {
+            entity.setUserProfilePicture(userDetailDTO.getUserProfilePicture());
+        }
+        if (userDetailDTO.getActive() != null) {
+            entity.setActive(userDetailDTO.getActive());
+        }
+
+        UserDetailEntity updated = userDetailRepo.save(entity);
+        return sanitize(modelMapper.map(updated, UserDetailDTO.class));
     }
 
     public UserDetailDTO getUserById(UUID id) {

@@ -18,4 +18,5 @@ public class ItemDTO {
     private Boolean veg;
     private Boolean available;
     private Boolean special;
+    // private String imageUrl;
 }

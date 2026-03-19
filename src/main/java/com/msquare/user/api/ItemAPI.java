@@ -53,37 +53,37 @@ public class ItemAPI {
     }
 
     //done
-    @GetMapping("/shop/{shopId}/weekly-items")
-    public List<ItemDTO> getAllWeeklyItems(@PathVariable UUID shopId) {
-        return itemService.getAllWeeklyItems(shopId);
-    }
+    // @GetMapping("/shop/{shopId}/weekly-items")
+    // public List<ItemDTO> getAllWeeklyItems(@PathVariable UUID shopId) {
+    //     return itemService.getAllWeeklyItems(shopId);
+    // }
 
 
     //done
-    @PostMapping("/shop/{shopId}/weekly-items/{weekNumber}/{itemId}")
-    public void addWeeklyItem(
-            @PathVariable UUID shopId,
-            @PathVariable Integer weekNumber,
-            @PathVariable UUID itemId) {
-        itemService.addWeeklyItem(shopId, weekNumber, itemId);
-    }
+    // @PostMapping("/shop/{shopId}/weekly-items/{weekNumber}/{itemId}")
+    // public void addWeeklyItem(
+    //         @PathVariable UUID shopId,
+    //         @PathVariable Integer weekNumber,
+    //         @PathVariable UUID itemId) {
+    //     itemService.addWeeklyItem(shopId, weekNumber, itemId);
+    // }
 
-    //TODO
-    @DeleteMapping("/shop/{shopId}/weekly-items/{weekNumber}/{itemId}")
-    public void removeWeeklyItem(
-            @PathVariable UUID shopId,
-            @PathVariable Integer weekNumber,
-            @PathVariable UUID itemId) {
-        itemService.removeWeeklyItem(shopId, weekNumber, itemId);
-    }
+    // //TODO:
+    // @DeleteMapping("/shop/{shopId}/weekly-items/{weekNumber}/{itemId}")
+    // public void removeWeeklyItem(
+    //         @PathVariable UUID shopId,
+    //         @PathVariable Integer weekNumber,
+    //         @PathVariable UUID itemId) {
+    //     itemService.removeWeeklyItem(shopId, weekNumber, itemId);
+    // }
 
-    //done
-    @GetMapping("/shop/{shopId}/weekly-items/{weekNumber}")
-    public List<ItemDTO> getWeeklyItems(
-            @PathVariable UUID shopId,
-            @PathVariable Integer weekNumber) {
-        return itemService.getWeeklyItems(shopId, weekNumber);
-    }
+    // //done
+    // @GetMapping("/shop/{shopId}/weekly-items/{weekNumber}")
+    // public List<ItemDTO> getWeeklyItems(
+    //         @PathVariable UUID shopId,
+    //         @PathVariable Integer weekNumber) {
+    //     return itemService.getWeeklyItems(shopId, weekNumber);
+    // }
 
     //done
     @GetMapping("/shop/items/{shopId}")
