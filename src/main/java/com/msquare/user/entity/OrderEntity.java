@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.msquare.user.common.OrderStatus;
+import com.msquare.user.common.PaymentType;
+
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor
@@ -20,14 +25,19 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID orderId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status; // CREATED, PAID, DELIVERED
+    private OrderStatus status;
 
-    private String paymentType; // UPI, COD, CARD
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
 
     private Double totalAmount;
 
-    private LocalDateTime orderDate;
+    private UUID shopId;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

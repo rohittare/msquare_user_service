@@ -39,7 +39,7 @@ public class ShopEntity {
     @Column(columnDefinition = "TEXT")
     private String picture;
 
-    /* Address ID only */
+   
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId")
     private AddressEntity address;
