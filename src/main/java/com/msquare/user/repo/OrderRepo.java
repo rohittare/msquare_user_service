@@ -15,6 +15,7 @@ public interface OrderRepo extends JpaRepository<OrderEntity, UUID> {
     @Query("""
             SELECT DISTINCT o FROM OrderEntity o
             LEFT JOIN FETCH o.orderItems
+            LEFT JOIN FETCH o.user
             WHERE o.user.userId = :userId
             ORDER BY o.createdAt DESC
             """)
@@ -23,6 +24,7 @@ public interface OrderRepo extends JpaRepository<OrderEntity, UUID> {
     @Query("""
             SELECT DISTINCT o FROM OrderEntity o
             LEFT JOIN FETCH o.orderItems
+            LEFT JOIN FETCH o.user
             WHERE o.shopId = :shopId
             ORDER BY o.createdAt DESC
             """)
@@ -31,6 +33,7 @@ public interface OrderRepo extends JpaRepository<OrderEntity, UUID> {
     @Query("""
             SELECT o FROM OrderEntity o
             LEFT JOIN FETCH o.orderItems
+            LEFT JOIN FETCH o.user
             WHERE o.orderId = :orderId
             """)
     Optional<OrderEntity> findByOrderIdWithItems(UUID orderId);

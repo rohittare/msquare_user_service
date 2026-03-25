@@ -35,6 +35,7 @@ public class ShopEntity {
     private boolean pureVeg;
     private boolean isApproved;
     private String role;
+    private boolean isActive;
 
     @Column(columnDefinition = "TEXT")
     private String picture;

@@ -10,6 +10,7 @@ import com.msquare.user.model.CreateOrderRequest;
 import com.msquare.user.model.OrderItemRequest;
 import com.msquare.user.model.OrderItemResponse;
 import com.msquare.user.model.OrderResponse;
+import com.msquare.user.model.UserDetailDTO;
 import com.msquare.user.model.UpdateOrderStatusRequest;
 import com.msquare.user.repo.ItemRepo;
 import com.msquare.user.repo.OrderRepo;
@@ -36,18 +37,21 @@ public class OrderService {
     private final ItemRepo itemRepo;
     private final ShopRepo shopRepo;
     private final UserDetailRepo userDetailRepo;
+    private final AddressService addressService;
 
     @Autowired
     public OrderService(
             OrderRepo orderRepo,
             ItemRepo itemRepo,
             ShopRepo shopRepo,
-            UserDetailRepo userDetailRepo
+            UserDetailRepo userDetailRepo,
+            AddressService addressService
     ) {
         this.orderRepo = orderRepo;
         this.itemRepo = itemRepo;
         this.shopRepo = shopRepo;
         this.userDetailRepo = userDetailRepo;
+        this.addressService = addressService;
     }
 
     @Transactional
@@ -156,12 +160,6 @@ public class OrderService {
         }
 
         OrderStatus target = request.getStatus();
-        if (target == OrderStatus.PLACED || target == OrderStatus.ACCEPTED
-                || target == OrderStatus.CANCELLED || target == OrderStatus.REJECTED) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Use accept, cancel, or reject endpoints for this status");
-        }
 
         return updateOrderStatusForShop(orderId, target);
     }
@@ -286,6 +284,7 @@ public class OrderService {
         response.setShopId(order.getShopId());
         response.setCreatedAt(order.getCreatedAt());
         response.setItems(mapOrderItems(order.getOrderItems()));
+        response.setUser(mapUser(order.getUser()));
         return response;
     }
 
@@ -315,5 +314,25 @@ public class OrderService {
             responses.add(mapOrder(order));
         }
         return responses;
+    }
+
+    private UserDetailDTO mapUser(UserDetailEntity user) {
+        if (user == null) {
+            return null;
+        }
+        UserDetailDTO dto = new UserDetailDTO();
+        dto.setUserId(user.getUserId());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setPhone(user.getPhone());
+        dto.setUserProfilePicture(user.getUserProfilePicture());
+        dto.setRole(user.getRole());
+        dto.setActive(user.isActive());
+        dto.setCreatedDate(user.getCreatedDate());
+        dto.setPassword(null);
+        if (user.getUserId() != null) {
+            dto.setAddresses(addressService.getAddressesByUserId(user.getUserId()));
+        }
+        return dto;
     }
 }

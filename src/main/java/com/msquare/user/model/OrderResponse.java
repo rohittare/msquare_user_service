@@ -2,6 +2,8 @@ package com.msquare.user.model;
 
 import com.msquare.user.common.OrderStatus;
 import com.msquare.user.common.PaymentType;
+import com.msquare.user.entity.UserDetailEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,5 @@ public class OrderResponse {
     private UUID shopId;
     private LocalDateTime createdAt;
     private List<OrderItemResponse> items;
+    private UserDetailDTO user;
 }
