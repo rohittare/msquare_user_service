@@ -46,10 +46,10 @@ public class ItemAPI {
     }
 
     //done
-    @PatchMapping("/items/{itemId}/today-special")
-    public void toggleTodaySpecial(
+    @PatchMapping("/items/{itemId}/available")
+    public void toggleAvailable(
             @PathVariable UUID itemId) {
-        itemService.toggleTodaySpecial(itemId);
+        itemService.toggleAvailable(itemId);
     }
 
     //done

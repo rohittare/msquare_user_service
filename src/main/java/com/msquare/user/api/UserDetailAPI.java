@@ -32,7 +32,7 @@ public class UserDetailAPI {
     public UserDetailDTO getUserById(@PathVariable UUID id) {
         return userDetailService.getUserById(id);
     }
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     public List<UserDetailDTO> getAllUsers() {
         return userDetailService.getAllUsers();
     }

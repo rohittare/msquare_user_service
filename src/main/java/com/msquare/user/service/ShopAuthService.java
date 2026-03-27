@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +18,14 @@ public class ShopAuthService {
     private final ShopRepo shopRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final WeeklyBhajiService weeklyBhajiService;
 
-    public ShopAuthService(ShopRepo shopRepo, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public ShopAuthService(ShopRepo shopRepo, PasswordEncoder passwordEncoder, JwtService jwtService , WeeklyBhajiService weeklyBhajiService) {
         this.shopRepo = shopRepo;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.weeklyBhajiService = weeklyBhajiService;
+
     }
 
     public ShopAuthResponse register(ShopRegisterRequest request) {
@@ -46,6 +48,7 @@ public class ShopAuthService {
         shop.setRole(normalizeRole(null));
 
         ShopEntity saved = shopRepo.save(shop);
+        weeklyBhajiService.initializeBhajiChart(saved.getShopId());
         return buildResponse(saved);
     }
 

@@ -88,11 +88,11 @@ public class ItemService {
 
     }
 
-    public void toggleTodaySpecial(UUID itemId) {
+    public void toggleAvailable(UUID itemId) {
         ItemEntity entity = itemRepo.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
-        entity.setSpecial(!entity.isSpecial());
+        entity.setAvailable(!entity.isAvailable());
         itemRepo.save(entity);
     }
 
